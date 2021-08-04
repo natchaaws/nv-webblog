@@ -13,21 +13,21 @@ export default new Router({
   routes: [
     {
       path: '/users',
-      name: '/users',
+      name: 'users',
       component: UserIndex
     },
     {
       path: '/user/create',
-      name: 'create-user',
+      name: 'user-create',
       component: UserCreate
     },
     {
-      path: '/user/edit',
-      name: 'edit-user',
+      path: '/user/edit/:userId',
+      name: 'user-edit',
       component: UserEdit
     },
     {
-      path: '/user',
+      path: '/user/:userId',
       name: 'user',
       component: UserShow
     }
