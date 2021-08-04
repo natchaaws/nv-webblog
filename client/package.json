@@ -1,8 +1,8 @@
 {
-  "name": "nv-webblog-client",
+  "name": "nv-wabblog-client",
   "version": "1.0.0",
-  "description": "nodejs veujs webblog client",
-  "author": "pakorn chanapim",
+  "description": "nodejs vuejs webblog client",
+  "author": "natcha awasri",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
