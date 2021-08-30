@@ -1,4 +1,5 @@
 const UserController = require('./controllers/UserController')
+const UserAuthenController = require('./controllers/UserAuthenController')
 
 module.exports = (app) => {
   app.post('/user',UserController.create)
@@ -6,4 +7,5 @@ module.exports = (app) => {
   app.delete('/user/:userId',UserController.remove)
   app.get('/user/:userId',UserController.show)
   app.get('/users',UserController.index)
+  app.post('/login',UserAuthenController.login)
 }
