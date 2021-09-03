@@ -17,9 +17,11 @@
         <button v-on:click="deleteUser(user)">ลบข้อมูล</button>
         </p>
         
-        <hr>
+        <hr >
     </div>
-</div>         
+    <p><button v-on:click="logout">Logout</button></p>
+</div>   
+      
 </template>
 <script>
 
@@ -53,7 +55,15 @@ import UsersService from '@/services/UsersService'
          },
          async refreshData() {
              this.users = (await UsersService.index()).data
-         }
+         },
+         logout (){
+             this.$store.dispatch('setToken', null)
+             this.$store.dispatch('setUser', null)
+             
+             this.$router.push({  
+                 name : 'login'
+             })
+         },
     }
 }
 

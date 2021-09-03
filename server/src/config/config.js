@@ -9,7 +9,8 @@ module.exports = {
       storage: './nvwebblog-db.sqlite'      
     },    
   },
+  
   authentication: {
-    jwtSecret: "test"
+    jwtSecret: 'nodejs vuejs'
   }
 }
