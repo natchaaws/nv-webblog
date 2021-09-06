@@ -6,7 +6,7 @@
             <li><router-link :to="{name: 'users'}">Users</router-link></li>
             <li><router-link :to="{name: 'comments'}">Comments</router-link></li>
             <li><router-link :to="{name: 'login'}">Login</router-link></li>
-            <li><router-link :to="{name: 'logout'}">Logout</router-link></li>
+            <li><a v-on:cick.prevent="logout" href="#">Logout</a></li>
         </ul>
         <div class="clearfix"></div>
         </div>
@@ -14,14 +14,22 @@
 </template>
 
 <script>
-export default{
-
+export default {
+  methods: {
+    logout() {
+      this.$store.dispatch("setTkoen", null);
+      this.$store.dispatch("setComment", null);
+      this.$router.push({
+        name: "login"
+      })
+    }
+  }
 }
 </script>
 
 <style scoped>
     .nv-navbar{
-        background-color: palegoldenrod;
+        background-color: #fc77c2;/*สีแทบ */
         width:  100%;
         padding: 10px 0px 10px 0px;
     }
@@ -40,18 +48,18 @@ export default{
     .nv-navbar .nav li a {
         padding: 10px;
         text-decoration: none;
-        color: gray; /*สีอักษร */
+        color: #ffe297; /*สีอักษร */
         font-weight: bold;
     }
 
     .nv-navbar .nav li a:hover {
         padding: 10px;
         text-decoration: none;
-        color: palevioletred; /*สีอักษรเมื่อเอาเม้าส์ไปวาง */
+        color: #b6ffe3; /*สีอักษรเมื่อเอาเม้าส์ไปวาง */
     }
 
     .nv-navbar .nav li a.router-link-active {
-        background-color: goldenrod;
+        background-color: #40cbea; 
         color: white; /*สีอักษรเมื่อกดอยู๋ในหน้านี้ */
     }
 
