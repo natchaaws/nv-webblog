@@ -3,6 +3,27 @@ const UserAuthenController = require('./controllers/UserAuthenController')
 const isAuthenController = require('./authen/isAuthenController')
 const BlogController = require('./controllers/BlogController')
 const CommentController = require('./controllers/CommentController')
+const blog = require('./models/Blog.js')
+
+//เพิ่มจากบท 13
+let multer = require("multer")
+
+//upload section
+let storage = multer.diskStorage({
+  destination: function (req, file, callblack) {
+    callblack(null, "./public/uploads");
+  },
+  filename: function(req, file, callblack) {
+    // callback(null, file.fieldname + '-' + Data.now());
+    console.log(file);
+    callblack(null, file.originalname);
+  }
+})
+let upload = multer({ storage: storage }).array("userPhoto",10)
+
+
+
+
 
 module.exports = (app) => {
   app.post('/user',UserController.create)
@@ -38,4 +59,38 @@ module.exports = (app) => {
   //get all comment
   app.get('/comments',CommentController.index)
 
+
+
+// upload เพิ่มจากบท 13
+  app.post("/upload", function(req, res) {
+  // isUserAuthenticated
+      upload(req, res, function(err) {
+        if(err){
+        return res.end("Error uploading file");
+        }
+        res.end("File is uploaded");
+      })
+    })
+
+  //delete flie uploaded function
+  app.post('/upload/delete', async function (req, res) {
+    try {
+      const fs = require('fs');
+
+      console.log(req.body.filename)
+      fs.unlink(process.cwd() + '/public/uploads/' + req.body.filename,
+      (err) => {
+        if (err) throw err;
+        res.send("Delete sucessful")
+        // conlose.log('successfully deleted material file');
+      });
+    } catch (err) {
+        res.status(500).send({
+          error: 'An error has occured trying to delete file the material'
+        })
+    }
+  })
+
+
 }
+

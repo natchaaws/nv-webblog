@@ -9,9 +9,12 @@ const app = express()
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors())
+app.use('/assets',express.static('public')) //เพิ่มมาในบทที่12 อ้างอิงโดยตรง
 
 require('./userPassport') 
 require('./routes')(app)
+
+
 
 app.get('/status', function (req, res ){
   res.send('Hello nodejs server')
