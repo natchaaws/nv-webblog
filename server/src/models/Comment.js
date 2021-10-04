@@ -1,8 +1,9 @@
 module.exports = ( sequelize, DataTypes ) => {
     const Comment = sequelize.define('Comment', {
-      blogId: DataTypes.STRING,
-      comment: DataTypes.STRING,
-      userId: DataTypes.STRING
+      title: DataTypes.STRING,
+      thumbnail: DataTypes.STRING,
+      pictures: DataTypes.STRING,
+      content: DataTypes.TEXT
     })
     return Comment
   }

@@ -35,4 +35,8 @@ export default {
   opacity: 1;
 }
 
+.thumbnail-pic img{
+      width: 150px;
+    }
+
 </style>

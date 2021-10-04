@@ -1,28 +1,81 @@
-<template>
+﻿<template>
   <div>
-    <h1>Edit Blog</h1>
-    <form v-on:submit.prevent="editBlog">
-      <p>ชื่อ : <input type="text" v-model="blog.firstname" /></p>
-       <p>นามสกุล : <input type="text" v-model="blog.lastname" /></p>
-      <p>ชื่อห้องประชุม : <input type="text" v-model="blog.nroom" /></p>
-      <p>จำนวนผู้เข้าประชุม : <input type="text" v-model="blog.pnum" /></p>
-      <p>เบอร์โทรศัพท์ : <input type="text" v-model="blog.tel" /></p>
-      <p>วันที่เริ่มต้น : <input type="text" v-model="blog.dates" /></p>
-      <p>เวลาที่เริ่มต้น: <input type="text" v-model="blog.times" /></p>
-      <p>วันที่สิ้นสุด : <input type="text" v-model="blog.datee" /></p>
-      <p>เวลาที่สิ้นสุด : <input type="text" v-model="blog.timee" /></p>
-      <p>อื่นๆ : <input type="text" v-model="blog.other" /></p>
+    <h1>แก้ไขรีวิว {{ comment.id }}</h1>
+    <form v-on:submit.prevent="editComment">
+      <p>หัวข้อ: <input type="text" v-model="comment.title" /></p>
+
+<!-- add-->
+
+ <transition name="fade"> 
+        <div class="thumbnail-pic" v-if="comment.thumbnail != 'null'">
+          <img :src="BASE_URL+comment.thumbnail" alt="thumbnail">
+        </div>
+      </transition>
+
+ <form enctype="multipart/form-data" novalidate>
+        <div class="dropbox">
+          <input
+            type="file"
+            multiple
+            :name="uploadFieldName"
+            :disabled="isSaving"
+            @change="
+              filesChange($event.target.name, $event.target.files);
+              fileCount = $event.target.files.length;
+            "
+            accept="image/*"
+            class="input-file"
+          />
+          <!-- <p v-if="isInitial || isSuccess"/> -->
+          <p v-if="isInitial">
+            Drag your files(s) <br />
+            here to begin or click to browse
+          </p>
+          <p v-if="isSaving">Uploading {{ fileCount }} files...</p>
+          <p v-if="isSuccess">อัพโหลดรูปเรียบร้อยแล้ว!.</p>
+          <p v-if="isFailed">อัพโหลดรูปไม่สำเร็จ</p>
+        </div>
+
+        <div>
+          <ul class="pictures">
+            <li v-for="picture in pictures" v-bind:key="picture.id">
+              <img
+                style="margin-bottom: 5px"
+                :src="BASE_URL + picture.name"
+                alt="picture image"
+              />
+              <br />
+              <button v-on:click.prevent="useThumbnail(picture.name)">แสดงภาพขนาดเล็ก</button>
+              <button v-on:click.prevent="delFile(picture)"> ลบรูปภาพ </button>
+              
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </form>
+
+
+
+      <p><strong>เนื้อหา:</strong></p>
       <p>
-        <br>
-        <button type="submit"> บันทึกการแก้ไขข้อมูล </button>
-        <button v-on:click="navigateTo('/blogs')"> ย้อนกลับ </button>
+        <vue-ckeditor
+          v-model.lazy="comment.content"
+          :config="config"
+          @blur="onBlur($event)"
+          @focus="onFocus($ecent)"
+        />
+      </p>
+      
+      <p>
+        <button type="submit">ยืนยันการแก้ไขรีวิว</button>
+        <button v-on:click="navigateTo('/comments')">ย้อนกลับ</button>
       </p>
     </form>
   </div>
 </template>
 <script>
 
-import BlogService from "@/services/BlogsService";
+import CommentService from "@/services/CommentsService";
 import VueCkeditor from "vue-ckeditor2";
 
 import UploadService from "@/services/UploadService";
@@ -47,7 +100,7 @@ export default {
       pictureIndex: 0,
 
 
-      blog: {
+      comment: {
         title: "",
         thumbnail: "null",
         pictues: "null", //ระวังตรงนี้คำผิด
@@ -64,11 +117,11 @@ export default {
     };
   },
   methods: {
-    async editBlog() {
+    async editComment() {
       try {
-        await BlogService.put(this.blog);
+        await CommentService.put(this.comment);
         this.$router.push({
-          name: "blogs",
+          name: "comments",
         });
       } catch (err) {
         console.log(err);
@@ -81,6 +134,111 @@ export default {
           onFocus (editor) {
             console.log(editor);
           },
+
+ created () {
+      this.config.toolbar = [
+        {
+          name: "document",
+          items: [
+            "Source",
+            "-",
+            "Save",
+            "NewPage",
+            "Preview",
+            "Print",
+            "-",
+            "Templates"
+          ]
+        },
+        {
+          name: "clipboard",
+          items: [
+            "Cut",
+            "Copy",
+            "Paste",
+            "PasteText",
+            "PasteFrromWord",
+            "-",
+            "Undo",
+            "Redo"
+          ]
+        },
+        {
+          name: "editing",
+          items: ["Find", "Replace", "-", "SelectAll", "-", "Scayt"]
+          },
+        {
+        name: "forms",
+        items: [
+          "From",
+          "Checkbox",
+          "TextField",
+          "Textarea",
+          "Select",
+          "Button",
+          "ImageButton",
+          "HiddenField"
+        ]
+    },
+    "/",
+    {
+        name: "basicstyles",
+        items: [
+          "Bold",
+          "Itatic",
+          "Underline",
+          "Strike",
+          "Subscript",
+          "Superscript",
+          "-",
+          "CopyFormatting",
+          "RemoveFormat"
+        ]
+    },
+    {
+      name: "paragaph",
+      items: [
+        "NumberedList",
+        "BulletedList",
+        "-",
+        "Outdent",
+        "Indent",
+        "-",
+        "Blockquote",
+        "CreateDiv",
+        "-",
+        "JustifyLeft",
+        "JustifyCenter",
+        "JustifyRight",
+        "JustifyBlock",
+        "-",
+        "BidiLtr",
+        "BidiRtl",
+        "Language"
+      ]
+    },
+    { name: "Links", items: ["Link", "Unlink", "Anchor"] },
+    {
+      name:"insert",
+      items: [
+        "Image",
+        "Flash",
+        "Table",
+        "HorizontaRule",
+        "Smiley",
+        "PageBreak",
+        "Iframe",
+        "InsertPre"
+      ]
+    },
+    "/",
+    { name: "styles", items: ["Styles", "Format", "Font", "FontSize"]},
+    { name: "colors", items: ["TextColor", "BGColor"]},
+    { name: "tools", items: ["Maximize", "ShowBlocks"]},
+    { name: "about", items: ["About"]}
+
+      ]
+    },
     
     navigateTo(route) {
       console.log(route);
@@ -153,7 +311,7 @@ export default {
 
     //เรียกใช้ v-0n:cick.prevent ส่ง picture ไปลบ 
     async delFile (material){
-      let result = confirm("Want to delete?")
+      let result = confirm("คุณแน่ใจนะที่จะลบรีวิวนี้?")
       if (result) {
         let dataJSON = {
           "filename":material.name
@@ -174,7 +332,7 @@ export default {
     /* thumbnail */
     useThumbnail (filename) {
       console.log(filename)
-      this.blog.thumbnail = filename
+      this.comment.thumbnail = filename
     }
   },
   created() {
@@ -203,8 +361,8 @@ export default {
 
   async created() {
     try {
-      let blogId = this.$route.params.blogId;
-      this.blog = (await BlogService.show(blogId)).data;
+      let commentId = this.$route.params.commentId;
+      this.comment = (await CommentService.show(commentId)).data;
 
 
     } catch (error) {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Show Blog</h1>
-    <p>id: {{ blog.id }}</p>
+    <p>ลำดับ: {{ blog.id }}</p>
       <p>ชื่อ: {{ blog.firstname }}</p>
       <p>นามสกุล: {{ blog.lastname }}</p>
       <p>ชื่อห้องประชุม: {{ blog.nroom }}</p>
@@ -15,9 +15,9 @@
 
     <p>
       <button v-on:click="navigateTo('/blog/edit/' + blog.id)">
-        Edit Blog
+        แก้ไขการจองห้องประชุม
       </button>
-      <button v-on:click="navigateTo('/blogs')">Back</button>
+      <button v-on:click="navigateTo('/blogs')">ย้อนกลับ</button>
     </p>
   </div>
 </template>

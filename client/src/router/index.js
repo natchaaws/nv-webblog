@@ -8,13 +8,19 @@ import UserEdit from '@/components/Users/EditUser'
 import UserShow from '@/components/Users/ShowUser'
 import Login from '@/components/Login'
 
-import CommentIndex from '@/components/Comments/Index'
 
 //Blog
 import BlogIndex from '@/components/Blogs/Index'
 import BlogCreate from '@/components/Blogs/CreateBlog'
 import BlogEdit from '@/components/Blogs/EditBlog'
 import BlogShow from '@/components/Blogs/ShowBlog'
+
+
+//Comment
+import CommentIndex from '@/components/Comments/Index'
+import CommentCreate from '@/components/Comments/CreateComment'
+import CommentEdit from '@/components/Comments/EditComment'
+import CommentShow from '@/components/Comments/ShowComment'
 
 //Room
 import RoomIndex from '@/components/Rooms/Index'
@@ -82,6 +88,21 @@ export default new Router({
       path: '/comments',
       name: 'comments',
       component: CommentIndex
+    },
+    {
+      path: '/comment/create',
+      name: 'comment-create',
+      component: CommentCreate
+    },
+    {
+      path: '/comment/edit/:commentId',
+      name: 'comment-edit',
+      component: CommentEdit
+    },
+    {
+      path: '/comment/:commentId',
+      name: 'comment',
+      component: CommentShow
     },
 
     // upload testing
