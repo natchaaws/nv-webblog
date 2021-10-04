@@ -2,10 +2,16 @@
   <div>
     <h1>Show Blog</h1>
     <p>id: {{ blog.id }}</p>
-    <p>title: {{ blog.title }}</p>
-    <p>content: {{ blog.content }}</p>
-    <p>category: {{ blog.category }}</p>
-    <p>status: {{ blog.status }}</p>
+      <p>ชื่อ: {{ blog.firstname }}</p>
+      <p>นามสกุล: {{ blog.lastname }}</p>
+      <p>ชื่อห้องประชุม: {{ blog.nroom }}</p>
+      <p>จำนวนผู้เข้าประชุม: {{ blog.pnum }}</p>
+      <p>เบอร์โทรศัพท์: {{ blog.tel }}</p>
+      <p>วันที่เริ่มต้น: {{ blog.dates }}</p>
+      <p>เวลาที่เริ่มต้น: {{ blog.times }}</p>
+      <p>วันที่สิ้นสุด: {{ blog.datee }}</p>
+      <p>เวลาที่สิ้นสุด: {{ blog.timee }}</p>
+      <p>อื่นๆ : {{ blog.other }}</p>
 
     <p>
       <button v-on:click="navigateTo('/blog/edit/' + blog.id)">

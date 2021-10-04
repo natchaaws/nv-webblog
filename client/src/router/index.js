@@ -16,6 +16,9 @@ import BlogCreate from '@/components/Blogs/CreateBlog'
 import BlogEdit from '@/components/Blogs/EditBlog'
 import BlogShow from '@/components/Blogs/ShowBlog'
 
+//Room
+import RoomIndex from '@/components/Rooms/Index'
+
 // upload testing
 import Upload from '@/components/Utils/Upload'
 
@@ -86,6 +89,13 @@ export default new Router({
       path: '/upload',
       name: 'upload',
       component: Upload
+    },
+
+     //room
+     {
+      path: '/rooms',
+      name: 'rooms',
+      component: RoomIndex
     },
 
 

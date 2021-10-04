@@ -2,74 +2,20 @@
   <div>
     <h1>Edit Blog</h1>
     <form v-on:submit.prevent="editBlog">
-      <p>title: <input type="text" v-model="blog.title" /></p>
-
-<!-- add-->
-
- <transition name="fade"> 
-        <div class="thumbnail-pic" v-if="blog.thumbnail != 'null'">
-          <img :src="BASE_URL+blog.thumbnail" alt="thumbnail">
-        </div>
-      </transition>
-
- <form enctype="multipart/form-data" novalidate>
-        <div class="dropbox">
-          <input
-            type="file"
-            multiple
-            :name="uploadFieldName"
-            :disabled="isSaving"
-            @change="
-              filesChange($event.target.name, $event.target.files);
-              fileCount = $event.target.files.length;
-            "
-            accept="image/*"
-            class="input-file"
-          />
-          <!-- <p v-if="isInitial || isSuccess"/> -->
-          <p v-if="isInitial">
-            Drag your files(s) <br />
-            here to begin or click to browse
-          </p>
-          <p v-if="isSaving">Uploading {{ fileCount }} files...</p>
-          <p v-if="isSuccess">Upload Successful.</p>
-          <p v-if="isFailed">Upload Failed</p>
-        </div>
-
-        <div>
-          <ul class="pictures">
-            <li v-for="picture in pictures" v-bind:key="picture.id">
-              <img
-                style="margin-bottom: 5px"
-                :src="BASE_URL + picture.name"
-                alt="picture image"
-              />
-              <br />
-              <button v-on:click.prevent="useThumbnail(picture.name)">Thumbnail</button>
-              <button v-on:click.prevent="delFile(picture)"> Delete </button>
-              
-            </li>
-          </ul>
-          <div class="clearfix"></div>
-        </div>
-      </form>
-
-
-
-      <p><strong>Content:</strong></p>
+      <p>ชื่อ : <input type="text" v-model="blog.firstname" /></p>
+       <p>นามสกุล : <input type="text" v-model="blog.lastname" /></p>
+      <p>ชื่อห้องประชุม : <input type="text" v-model="blog.nroom" /></p>
+      <p>จำนวนผู้เข้าประชุม : <input type="text" v-model="blog.pnum" /></p>
+      <p>เบอร์โทรศัพท์ : <input type="text" v-model="blog.tel" /></p>
+      <p>วันที่เริ่มต้น : <input type="text" v-model="blog.dates" /></p>
+      <p>เวลาที่เริ่มต้น: <input type="text" v-model="blog.times" /></p>
+      <p>วันที่สิ้นสุด : <input type="text" v-model="blog.datee" /></p>
+      <p>เวลาที่สิ้นสุด : <input type="text" v-model="blog.timee" /></p>
+      <p>อื่นๆ : <input type="text" v-model="blog.other" /></p>
       <p>
-        <vue-ckeditor
-          v-model.lazy="blog.content"
-          :config="config"
-          @blur="onBlur($event)"
-          @focus="onFocus($ecent)"
-        />
-      </p>
-      <p>category: <input type="text" v-model="blog.category" /></p>
-      <p>status: <input type="text" v-model="blog.status" /></p>
-      <p>
-        <button type="submit">Update Blog</button>
-        <button v-on:click="navigateTo('/blogs')">Back</button>
+        <br>
+        <button type="submit"> บันทึกการแก้ไขข้อมูล </button>
+        <button v-on:click="navigateTo('/blogs')"> ย้อนกลับ </button>
       </p>
     </form>
   </div>

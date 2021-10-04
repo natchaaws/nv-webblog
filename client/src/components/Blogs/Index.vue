@@ -1,19 +1,26 @@
 <template>
   <div>
-    <h1>Get all blogs</h1>
+    <h1>การจองห้องประชุม</h1>
   <!--   <p><button v-on:click="logout">Logout</button></p> -->
-    <h4>จำนวน Blog {{ blogs.length }}</h4>
-    <p><button v-on:click="navigateTo('/blog/create')">Create Blog</button></p>
+    <h4>จำนวนที่จอง {{ blogs.length }} </h4>
+
+    <p><button v-on:click="navigateTo('/blog/create')"> จองห้องประชุม </button></p>
     <div v-for="blog in blogs" v-bind:key="blog.id">
-      <p>id: {{ blog.id }}</p>
-      <p>title: {{ blog.title }}</p>
-      <p>content: {{ blog.content }}</p>
-      <p>category: {{ blog.category }}</p>
-      <p>status: {{ blog.status }}</p>
+      <p>ลำดับ: {{ blog.id }}</p>
+      <p>ชื่อ: {{ blog.firstname }}</p>
+      <p>นามสกุล: {{ blog.lastname }}</p>
+      <p>ชื่อห้องประชุม: {{ blog.nroom }}</p>
+      <p>จำนวนผู้เข้าประชุม: {{ blog.pnum }}</p>
+      <p>เบอร์โทรศัพท์: {{ blog.tel }}</p>
+      <p>วันที่เริ่มต้น: {{ blog.dates }}</p>
+      <p>เวลาที่เริ่มต้น: {{ blog.times }}</p>
+      <p>วันที่สิ้นสุด: {{ blog.datee }}</p>
+      <p>เวลาที่สิ้นสุด: {{ blog.timee }}</p>
+      <p>อื่นๆ : {{ blog.other }}</p>
       <p>
-        <button v-on:click="navigateTo('blog/'+blog.id)">Check Blog</button>
-        <button v-on:click="navigateTo('/blog/edit/' + blog.id)">  Edit Blog </button>
-        <button v-on:click="deleteBlog(blog)">Delete Blog</button>
+        <button v-on:click="navigateTo('blog/'+blog.id)"> ตรวจสอบการจอง </button>
+        <button v-on:click="navigateTo('/blog/edit/' + blog.id)"> แก้ไขการจองห้องประชุม </button>
+        <button v-on:click="deleteBlog(blog)"> ยกเลิกการจองห้องประชุม</button>
       </p>
       <hr>
     </div>
@@ -45,7 +52,7 @@ export default {
       this.$router.push(route);
     },
     async deleteBlog(blog) {
-      let result = confirm("Want to delete?");
+      let result = confirm("คุณแน่ใจนะ ที่จะยกเลิกการจองห้องประชุม?");
       if (result) {
         try {
           await BlogService.delete(blog);
@@ -62,4 +69,5 @@ export default {
 };
 </script>
 <style scoped>
+
 </style>

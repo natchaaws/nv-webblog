@@ -1,16 +1,20 @@
 <template>
+
+
     <div>
         <div class="nv-navbar"> 
         <ul class="nav">
-            <li><router-link :to="{name: 'blogs'}">Blogs</router-link></li>
-            <li><router-link :to="{name: 'users'}">Users</router-link></li>
-            <li><router-link :to="{name: 'comments'}">Comments</router-link></li>
+            <li><router-link :to="{name: 'rooms'}">รายละเอียดห้องประชุม</router-link></li> 
+            <li><router-link :to="{name: 'blogs'}">การจองห้องประชุม</router-link></li>
+            <li><router-link :to="{name: 'comments'}">รีวิวห้องประชุม</router-link></li>
+            <li><router-link :to="{name: 'users'}">ผู้ใช้งาน</router-link></li>
             <li><router-link :to="{name: 'login'}">Login</router-link></li>
             <li><a v-on:cick.prevent="logout" href="login">Logout</a></li>
         </ul>
         <div class="clearfix"></div>
         </div>
     </div>
+
 </template>
 
 <script>

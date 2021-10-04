@@ -3,6 +3,7 @@ const UserAuthenController = require('./controllers/UserAuthenController')
 const isAuthenController = require('./authen/isAuthenController')
 const BlogController = require('./controllers/BlogController')
 const CommentController = require('./controllers/CommentController')
+const RoomController = require('./controllers/RoomController')
 const blog = require('./models/Blog.js')
 
 //เพิ่มจากบท 13
@@ -46,6 +47,20 @@ module.exports = (app) => {
   app.get('/blog/:blogId',BlogController.show)
   //get all blog
   app.get('/blogs',BlogController.index)
+
+
+ //room route
+  //create room
+  app.post('/room',RoomController.create)
+  //edit blog, suspend, active
+  app.put('/room/:roomId',RoomController.put)
+  //delete room
+  app.delete('/room/:roomId',RoomController.remove)
+  //get room by id 
+  app.get('/room/:roomId',RoomController.show)
+  //get all room
+  app.get('/rooms',RoomController.index)
+
 
   //Comment route
     //create comment

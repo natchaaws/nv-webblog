@@ -2,76 +2,22 @@
   <div>
     <h1>Create Blog</h1>
     <form v-on:submit.prevent="createBlog">
-        <!-- thumbnail-->
-      <p>title: <input type="text" v-model="blog.title"></p>
+    
+      <p>ชื่อ : <input type="text" v-model="blog.firstname" /></p>
+      <p>นามสกุล : <input type="text" v-model="blog.lastname" /></p>
+      <p>ชื่อห้องประชุม : <input type="text" v-model="blog.nroom" /></p>
+      <p>จำนวนผู้เข้าประชุม : <input type="text" v-model="blog.pnum" /></p>
+      <p>เบอร์โทรศัพท์ : <input type="text" v-model="blog.tel" /></p>
+      <p>วันที่เริ่มต้น : <input type="text" v-model="blog.dates" /></p>
+      <p>เวลาที่เริ่มต้น: <input type="text" v-model="blog.times" /></p>
+      <p>วันที่สิ้นสุด : <input type="text" v-model="blog.datee" /></p>
+      <p>เวลาที่สิ้นสุด : <input type="text" v-model="blog.timee" /></p>
+      <p>อื่นๆ : <input type="text" v-model="blog.other" /></p>
 
+  
 
-      <transition name="fade"> 
-        <div class="thumbnail-pic" v-if="blog.thumbnail != 'null'">
-          <img :src="BASE_URL+blog.thumbnail" alt="thumbnail">
-        </div>
-      </transition>
-
-      <!-- <p><strong>Title:</strong> <input type="text" v-model="blog.title" /></p> -->
-
-      <form enctype="multipart/form-data" novalidate>
-        <div class="dropbox">
-          <input
-            type="file"
-            multiple
-            :name="uploadFieldName"
-            :disabled="isSaving"
-            @change="
-              filesChange($event.target.name, $event.target.files);
-              fileCount = $event.target.files.length;
-            "
-            accept="image/*"
-            class="input-file"
-          />
-          <!-- <p v-if="isInitial || isSuccess"/> -->
-          <p v-if="isInitial">
-            Drag your files(s) <br />
-            here to begin or click to browse
-          </p>
-          <p v-if="isSaving">Uploading {{ fileCount }} files...</p>
-          <p v-if="isSuccess">Upload Successful.</p>
-          <p v-if="isFailed">Upload Failed</p>
-        </div>
-
-        <div>
-          <ul class="pictures">
-            <li v-for="picture in pictures" v-bind:key="picture.id">
-              <img
-                style="margin-bottom: 5px"
-                :src="BASE_URL + picture.name"
-                alt="picture image"
-              />
-              <br />
-              <button v-on:click.prevent="delFile(picture)"> Delete </button>
-              <button v-on:click.prevent="useThumbnail(picture.name)">Thumbnail</button>
-            </li>
-          </ul>
-          <div class="clearfix"></div>
-        </div>
-      </form>
-
-      <p><strong>Content:</strong></p>
-      <p>
-        <vue-ckeditor
-          v-model.lazy="blog.content"
-          :config="config"
-          @blur="onBlur($event)"
-          @focus="onFocus($ecent)"
-        />
-      </p>
-
-      <p>
-        <strong>Category:</strong> <input type="text" v-model="blog.category" />
-      </p>
-      <p>
-        <strong>Status:</strong> <input type="text" v-model="blog.status" />
-      </p>
-      <p><button type="submit">Create Blog</button></p>
+    
+      <p><button type="submit">ยืนยันการจองห้องประชุม</button></p>
     </form>
   </div>
 </template>
